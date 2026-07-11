@@ -1,4 +1,4 @@
-# VA Braids - wensite
+# VA Braids - website
 
 Official website for **VA Braids** — a braiding studio led by Vanessa Abdul, offering braiding services for men, women, and children. The site showcases a portfolio of work, connects visitors to booking via **Re-Up**, and provides a direct contact option for after-hours inquiries.
 
