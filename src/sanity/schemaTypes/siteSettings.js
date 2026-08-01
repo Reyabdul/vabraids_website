@@ -1,8 +1,7 @@
 /**
- * Singleton document holding global, cross-page copy and links —
- * anything that appears in more than one page (nav, footer, disclosures).
- * Page-specific copy lives in splashContent / homeContent / galleryContent /
- * contactContent instead, so this doc doesn't become a dumping ground.
+ * Singleton document for global, cross-section copy — the fixed header
+ * nav, fixed footer, and anything reused in more than one section
+ * (booking CTA label appears in header, hero, and contact).
  */
 export default {
   name: 'siteSettings',
@@ -10,7 +9,8 @@ export default {
   type: 'document',
   groups: [
     { name: 'brand', title: 'Brand' },
-    { name: 'navigation', title: 'Navigation' },
+    { name: 'navigation', title: 'Header Nav' },
+    { name: 'footer', title: 'Footer' },
     { name: 'booking', title: 'Booking & Contact' },
     { name: 'legal', title: 'Disclosures' },
   ],
@@ -31,27 +31,27 @@ export default {
       group: 'brand',
     },
     {
-      name: 'subtitle',
-      title: 'Subtitle',
-      type: 'string',
-      description: 'e.g. "Protective Styling & Braiding Studio · Toronto"',
-      group: 'brand',
-    },
-    {
       name: 'instagramHandle',
       title: 'Instagram Handle',
       type: 'string',
-      description: 'Without the @ symbol',
+      description: 'Without the @ symbol, used across nav/instagram/footer.',
       validation: (Rule) => Rule.required(),
       group: 'brand',
     },
 
-    // --- Navigation ---
+    // --- Header Nav ---
     {
-      name: 'navHomeLabel',
-      title: 'Home Link Label',
+      name: 'navStudioLabel',
+      title: '"Studio" (About) Link Label',
       type: 'string',
-      initialValue: 'Home',
+      initialValue: 'Studio',
+      group: 'navigation',
+    },
+    {
+      name: 'navServicesLabel',
+      title: 'Services Link Label',
+      type: 'string',
+      initialValue: 'Services',
       group: 'navigation',
     },
     {
@@ -62,6 +62,13 @@ export default {
       group: 'navigation',
     },
     {
+      name: 'navInstagramLabel',
+      title: 'Instagram Link Label',
+      type: 'string',
+      initialValue: 'Instagram',
+      group: 'navigation',
+    },
+    {
       name: 'navContactLabel',
       title: 'Contact Link Label',
       type: 'string',
@@ -69,11 +76,28 @@ export default {
       group: 'navigation',
     },
     {
-      name: 'footerText',
-      title: 'Footer Text',
+      name: 'bookingCtaLabel',
+      title: 'Booking Button Label',
       type: 'string',
-      description: 'Optional small copyright/footer line.',
+      description: 'Reused in header, hero, and contact section, e.g. "Book on Re-Up ↗"',
+      initialValue: 'Book on Re-Up ↗',
       group: 'navigation',
+    },
+
+    // --- Footer ---
+    {
+      name: 'footerCopyrightText',
+      title: 'Copyright Text',
+      type: 'string',
+      description: 'e.g. "VA Braids © 2026"',
+      group: 'footer',
+    },
+    {
+      name: 'studioAddress',
+      title: 'Studio Address',
+      type: 'string',
+      description: 'e.g. "The Re-Up Hub · North York, Toronto"',
+      group: 'footer',
     },
 
     // --- Booking & Contact ---
@@ -88,22 +112,15 @@ export default {
       name: 'bookingUrl',
       title: 'Booking URL',
       type: 'url',
-      description: 'Primary CTA link — external booking flow (e.g. Squire).',
+      description: 'External booking flow (Squire), used by every "Book on Re-Up" CTA.',
       validation: (Rule) => Rule.required().uri({ scheme: ['http', 'https'] }),
-      group: 'booking',
-    },
-    {
-      name: 'studioAddress',
-      title: 'Studio Address',
-      type: 'string',
-      description: 'e.g. "The Re-Up Hub · North York, Toronto"',
       group: 'booking',
     },
     {
       name: 'contactEmail',
       title: 'Contact Email',
       type: 'string',
-      description: 'Destination for the after-hours email inquiry form.',
+      description: 'Destination for the inquiry form.',
       validation: (Rule) => Rule.required().email(),
       group: 'booking',
     },
@@ -115,7 +132,7 @@ export default {
       type: 'text',
       rows: 3,
       description:
-        'Required copy stating VA Braids does not supply/add hair by default. Rendered on Home (services section) and Contact page.',
+        'Required copy stating VA Braids does not supply/add hair by default.',
       validation: (Rule) => Rule.required(),
       group: 'legal',
     },

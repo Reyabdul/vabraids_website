@@ -1,36 +1,23 @@
 /**
- * Singleton document for the Splash/Intro screen — the first thing
- * visitors see before entering the Home page.
+ * Singleton document for the intro splash overlay (click/scroll to enter).
  */
 export default {
   name: 'splashContent',
-  title: 'Splash / Intro Page',
+  title: 'Splash / Intro',
   type: 'document',
   fields: [
     {
-      name: 'backgroundImage',
-      title: 'Background Image',
-      type: 'image',
-      options: { hotspot: true },
-    },
-    {
-      name: 'welcomeText',
-      title: 'Welcome Text',
+      name: 'scrollPromptLabel',
+      title: 'Scroll Prompt Label',
       type: 'string',
-      description: 'Small eyebrow/intro line above the wordmark, if any.',
-    },
-    {
-      name: 'enterButtonLabel',
-      title: 'Enter Button Label',
-      type: 'string',
-      description: 'e.g. "Enter Site", "View Site"',
-      initialValue: 'Enter Site',
+      description: 'e.g. "Scroll to enter"',
+      initialValue: 'Scroll to enter',
       validation: (Rule) => Rule.required(),
     },
   ],
   preview: {
     prepare() {
-      return { title: 'Splash / Intro Page' };
+      return { title: 'Splash / Intro' };
     },
   },
 };

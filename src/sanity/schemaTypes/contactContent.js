@@ -1,101 +1,74 @@
 /**
- * Singleton document for the Contact page: the primary Re-Up booking CTA,
- * the secondary email inquiry form (all field labels), and the FAQ
- * section heading. Booking flow priority: Re-Up first, email form second —
- * keep this doc's field grouping/order reflecting that on the frontend.
+ * Singleton document for the Contact section: intro copy plus every
+ * inquiry form field label and the post-submit "sent" state copy.
  */
 export default {
   name: 'contactContent',
-  title: 'Contact Page',
+  title: 'Contact Section',
   type: 'document',
   groups: [
-    { name: 'intro', title: 'Page Intro' },
-    { name: 'primaryCta', title: 'Primary CTA (Re-Up)' },
+    { name: 'intro', title: 'Intro' },
     { name: 'form', title: 'Inquiry Form' },
-    { name: 'faq', title: 'FAQ Section' },
+    { name: 'success', title: 'Success State' },
   ],
   fields: [
-    // --- Page Intro ---
+    // --- Intro ---
     {
-      name: 'pageHeading',
-      title: 'Page Heading',
+      name: 'eyebrow',
+      title: 'Eyebrow Label',
       type: 'string',
       description: 'e.g. "Book & Inquire"',
-      initialValue: 'Book & Inquire',
       group: 'intro',
     },
     {
-      name: 'pageIntroText',
-      title: 'Page Intro Text',
+      name: 'headline',
+      title: 'Headline',
       type: 'string',
+      description: 'e.g. "Ready when you are."',
       group: 'intro',
     },
     {
-      name: 'hairDisclaimerNote',
-      title: 'Hair Disclaimer Prefix Label',
-      type: 'string',
+      name: 'introText',
+      title: 'Intro Text',
+      type: 'text',
+      rows: 3,
       description:
-        'Optional short label shown before the global hair disclaimer text on this page, e.g. "Please note:"',
+        'e.g. "Appointments are booked through The Re-Up Hub on Squire. For custom work, availability, or anything else — send an inquiry and I\'ll reply personally."',
       group: 'intro',
-    },
-
-    // --- Primary CTA ---
-    {
-      name: 'bookingCtaLabel',
-      title: 'Booking Button Label',
-      type: 'string',
-      description: 'e.g. "Book Now"',
-      initialValue: 'Book Now',
-      group: 'primaryCta',
-    },
-    {
-      name: 'bookingCtaSubtext',
-      title: 'Booking Button Subtext',
-      type: 'string',
-      description: 'Optional small line under the button, e.g. "via Squire"',
-      group: 'primaryCta',
     },
 
     // --- Inquiry Form ---
     {
-      name: 'inquiryHeading',
-      title: 'Inquiry Section Heading',
-      type: 'string',
-      description: 'e.g. "Can\'t find your date? Send an inquiry"',
-      group: 'form',
-    },
-    {
-      name: 'nameFieldLabel',
-      title: 'Name Field Label',
+      name: 'nameFieldPlaceholder',
+      title: 'Name Field Placeholder',
       type: 'string',
       initialValue: 'Name',
       group: 'form',
     },
     {
-      name: 'emailFieldLabel',
-      title: 'Email Field Label',
+      name: 'emailFieldPlaceholder',
+      title: 'Email Field Placeholder',
       type: 'string',
       initialValue: 'Email',
       group: 'form',
     },
     {
-      name: 'phoneFieldLabel',
-      title: 'Phone Field Label',
+      name: 'phoneFieldPlaceholder',
+      title: 'Phone Field Placeholder',
       type: 'string',
       initialValue: 'Phone',
       group: 'form',
     },
     {
-      name: 'serviceFieldLabel',
-      title: 'Service Checkboxes Label',
+      name: 'serviceFieldPlaceholder',
+      title: 'Service Field Placeholder',
       type: 'string',
-      description: 'Label above the service-interest checkbox group.',
-      initialValue: 'Which service(s) are you interested in?',
+      initialValue: "Service you're interested in",
       group: 'form',
     },
     {
-      name: 'messageFieldLabel',
-      title: 'Message Field Label',
+      name: 'messageFieldPlaceholder',
+      title: 'Message Field Placeholder',
       type: 'string',
       initialValue: 'Message',
       group: 'form',
@@ -107,34 +80,26 @@ export default {
       initialValue: 'Send Inquiry',
       group: 'form',
     },
+
+    // --- Success State ---
+    {
+      name: 'successHeadline',
+      title: 'Success Headline',
+      type: 'string',
+      initialValue: 'Thank you.',
+      group: 'success',
+    },
     {
       name: 'successMessage',
       title: 'Success Message',
       type: 'string',
-      initialValue: "Thanks — we'll get back to you soon.",
-      group: 'form',
-    },
-    {
-      name: 'errorMessage',
-      title: 'Error Message',
-      type: 'string',
-      initialValue: 'Something went wrong. Please try again.',
-      group: 'form',
-    },
-
-    // --- FAQ Section ---
-    {
-      name: 'faqHeading',
-      title: 'FAQ Section Heading',
-      type: 'string',
-      description: 'e.g. "Questions"',
-      initialValue: 'Questions',
-      group: 'faq',
+      initialValue: "Your inquiry is in. I'll be in touch shortly.",
+      group: 'success',
     },
   ],
   preview: {
     prepare() {
-      return { title: 'Contact Page' };
+      return { title: 'Contact Section' };
     },
   },
 };

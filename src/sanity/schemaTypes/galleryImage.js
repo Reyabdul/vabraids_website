@@ -1,8 +1,9 @@
 /**
- * A single gallery photo, tagged by style (required) and client type
- * (optional) to power the Gallery page filter.
+ * A single gallery photo. `category` powers the filter tabs
+ * (All / Braids / Twists / Ponytails). `label` is the specific
+ * style name shown as a caption/placeholder (e.g. "Knotless braids").
  * @returns {{ _id: string, image: object, alt: string,
- *   style: string, clientType: string, featured: boolean }}
+ *   label: string, category: string, featured: boolean, order: number }}
  */
 export default {
   name: 'galleryImage',
@@ -25,58 +26,48 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'style',
-      title: 'Style',
+      name: 'label',
+      title: 'Style Label',
       type: 'string',
-      description: 'Matches the gallery filter tiles on the design.',
+      description: 'Specific style name, e.g. "Knotless braids", "Passion twists", "Sleek ponytail".',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      description: 'Matches the gallery filter tabs.',
       options: {
         list: [
-          { title: 'Knotless Braids', value: 'knotless-braids' },
-          { title: 'Rope Twists', value: 'rope-twists' },
-          { title: 'Custom Braids', value: 'custom-braids' },
-          { title: 'Sleek Ponytail', value: 'sleek-ponytail' },
-          { title: 'Feed-in Box Braids', value: 'feed-in-box-braids' },
-          { title: 'Passion Twists', value: 'passion-twists' },
-          { title: 'Other', value: 'other' },
+          { title: 'Braids', value: 'braids' },
+          { title: 'Twists', value: 'twists' },
+          { title: 'Ponytails', value: 'ponytails' },
         ],
       },
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'clientType',
-      title: 'Client Type',
-      type: 'string',
-      description: 'Optional — used only if/when the gallery adds a client-type filter.',
-      options: {
-        list: [
-          { title: 'Men', value: 'men' },
-          { title: 'Women', value: 'women' },
-          { title: 'Kids', value: 'kids' },
-        ],
-      },
-    },
-    {
       name: 'featured',
-      title: 'Featured on Home',
+      title: 'Featured in Preview',
       type: 'boolean',
-      description: 'Include this image in the Home page mini gallery preview.',
+      description: 'Include in the Gallery section preview grid (first 8 shown).',
       initialValue: false,
     },
     {
-      name: 'uploadedAt',
-      title: 'Uploaded At',
-      type: 'datetime',
-      initialValue: () => new Date().toISOString(),
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      initialValue: 0,
     },
   ],
   orderings: [
     {
-      title: 'Newest First',
-      name: 'uploadedDesc',
-      by: [{ field: 'uploadedAt', direction: 'desc' }],
+      title: 'Display Order',
+      name: 'orderAsc',
+      by: [{ field: 'order', direction: 'asc' }],
     },
   ],
   preview: {
-    select: { title: 'style', subtitle: 'clientType', media: 'image' },
+    select: { title: 'label', subtitle: 'category', media: 'image' },
   },
 };
