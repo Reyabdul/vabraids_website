@@ -26,7 +26,7 @@ export function SiteHeader({ siteSettings, onNavigate, tone = 'light' }) {
       <button
         type="button"
         onClick={() => onNavigate('hero')}
-        className={`font-display font-medium text-2xl tracking-[.02em] cursor-pointer bg-transparent border-0 p-0 transition-colors duration-300 ${textClass}`}
+        className={`font-display font-medium text-2xl tracking-[.02em] cursor-pointer bg-transparent border-0 p-0 ${textClass}`}
       >
         {siteSettings?.businessName}
       </button>
@@ -37,7 +37,7 @@ export function SiteHeader({ siteSettings, onNavigate, tone = 'light' }) {
             key={id}
             type="button"
             onClick={() => onNavigate(id)}
-            className={`hidden lg:block text-xs tracking-[.2em] uppercase cursor-pointer bg-transparent border-0 p-0 transition-colors duration-300 ${textClass}`}
+            className={`hidden lg:block text-xs tracking-[.2em] uppercase cursor-pointer bg-transparent border-0 p-0 ${textClass}`}
           >
             {siteSettings?.[labelKey]}
           </button>
