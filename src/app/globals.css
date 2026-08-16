@@ -14,31 +14,38 @@
   --font-sans: var(--font-jost);
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+/*
+ * Element defaults live in @layer base so Tailwind utility classes
+ * (emitted in @layer utilities) always win over them — e.g. a `text-paper`
+ * class on an <a> must beat the default ink link color below.
+ */
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
 
-body {
-  background: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
 
-a {
-  color: var(--color-ink);
-  text-decoration: none;
-}
+  a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
 
-a:hover {
-  opacity: 0.55;
-}
+  a:hover {
+    opacity: 0.55;
+  }
 
-::selection {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
 }
 
 .no-scrollbar {

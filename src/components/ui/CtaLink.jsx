@@ -31,7 +31,7 @@ export function CtaLink({
 }) {
   const key = variant === 'filled' ? 'filled' : `${variant}-${tone}`;
   const base =
-    'inline-flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-[.2em] transition-opacity cursor-pointer whitespace-nowrap';
+    'inline-flex items-center justify-center gap-2 font-sans text-xs uppercase tracking-[.2em] transition duration-300 cursor-pointer whitespace-nowrap';
   const shape = variant === 'text' ? '' : `rounded-md ${SIZE_CLASSES[size]}`;
   const classes = `${base} ${shape} ${VARIANT_TONE_CLASSES[key]} ${className}`;
 

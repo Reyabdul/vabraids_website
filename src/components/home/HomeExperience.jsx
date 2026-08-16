@@ -34,6 +34,36 @@ import { GalleryOverlay } from '@/components/gallery/GalleryOverlay';
 // Scroll near the bottom of a section before the fixed footer reveals itself.
 const FOOTER_REVEAL_THRESHOLD_PX = 30;
 
+// Fixed header height — used to sample which section sits directly behind it.
+const HEADER_HEIGHT_PX = 68;
+
+// Background tone of each section, so the fixed header can swap its text
+// color and stay readable over both light sections and dark ones
+// (Gallery/Contact use a solid dark background).
+const SECTION_TONE = {
+  hero: 'dark',
+  about: 'light',
+  services: 'light',
+  gallery: 'dark',
+  instagram: 'light',
+  voices: 'light',
+  faq: 'light',
+  contact: 'dark',
+};
+const SECTION_IDS = Object.keys(SECTION_TONE);
+
+function getSectionToneAtHeader() {
+  for (const id of SECTION_IDS) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= HEADER_HEIGHT_PX && rect.bottom > HEADER_HEIGHT_PX) {
+      return SECTION_TONE[id];
+    }
+  }
+  return SECTION_TONE.hero;
+}
+
 /**
  * Owns the cross-section experience: the splash intro, scroll-snap
  * navigation between sections, the fixed footer's scroll-triggered
@@ -44,6 +74,7 @@ export function HomeExperience() {
   const [intro, setIntro] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
+  const [headerTone, setHeaderTone] = useState(SECTION_TONE.hero);
   const mainRef = useRef(null);
 
   const { data: siteSettings } = useSiteSettings();
@@ -85,6 +116,7 @@ export function HomeExperience() {
     const el = e.currentTarget;
     const nearBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - FOOTER_REVEAL_THRESHOLD_PX;
     setFooterVisible(nearBottom);
+    setHeaderTone(getSectionToneAtHeader());
   }, []);
 
   return (
@@ -100,7 +132,7 @@ export function HomeExperience() {
         )}
       </AnimatePresence>
 
-      <SiteHeader siteSettings={siteSettings} onNavigate={goTo} />
+      <SiteHeader siteSettings={siteSettings} onNavigate={goTo} tone={headerTone} />
 
       <main
         ref={mainRef}
