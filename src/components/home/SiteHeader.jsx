@@ -1,0 +1,62 @@
+'use client';
+
+import PropTypes from 'prop-types';
+import { CtaLink } from '@/components/ui/CtaLink';
+
+const NAV_ITEMS = [
+  { id: 'about', labelKey: 'navStudioLabel' },
+  { id: 'services', labelKey: 'navServicesLabel' },
+  { id: 'gallery', labelKey: 'navGalleryLabel' },
+  { id: 'instagram', labelKey: 'navInstagramLabel' },
+  { id: 'contact', labelKey: 'navContactLabel' },
+];
+
+/**
+ * Fixed transparent header — wordmark, section nav, and the Re-Up
+ * booking CTA. Nav labels/CTA copy come from siteSettings.
+ */
+export function SiteHeader({ siteSettings, onNavigate }) {
+  return (
+    <header className="fixed top-0 inset-x-0 h-[68px] z-40 flex items-center justify-between px-6 md:px-10">
+      <button
+        type="button"
+        onClick={() => onNavigate('hero')}
+        className="font-display font-medium text-2xl tracking-[.02em] cursor-pointer bg-transparent border-0 p-0"
+      >
+        {siteSettings?.businessName}
+      </button>
+
+      <nav className="flex items-center gap-9">
+        {NAV_ITEMS.map(({ id, labelKey }) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onNavigate(id)}
+            className="hidden lg:block text-xs tracking-[.2em] uppercase cursor-pointer bg-transparent border-0 p-0"
+          >
+            {siteSettings?.[labelKey]}
+          </button>
+        ))}
+        {siteSettings?.bookingUrl && (
+          <CtaLink href={siteSettings.bookingUrl} variant="outline" tone="light" size="sm">
+            {siteSettings.bookingCtaLabel}
+          </CtaLink>
+        )}
+      </nav>
+    </header>
+  );
+}
+
+SiteHeader.propTypes = {
+  siteSettings: PropTypes.shape({
+    businessName: PropTypes.string,
+    navStudioLabel: PropTypes.string,
+    navServicesLabel: PropTypes.string,
+    navGalleryLabel: PropTypes.string,
+    navInstagramLabel: PropTypes.string,
+    navContactLabel: PropTypes.string,
+    bookingCtaLabel: PropTypes.string,
+    bookingUrl: PropTypes.string,
+  }),
+  onNavigate: PropTypes.func.isRequired,
+};
