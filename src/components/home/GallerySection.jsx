@@ -10,7 +10,7 @@ import { SanityImage } from '@/components/ui/SanityImage';
  */
 export function GallerySection({ content, images = [], onOpenFullGallery }) {
   return (
-    <section id="gallery" className="snap-start min-h-screen px-6 md:px-10 py-26 md:py-24 bg-ink text-paper">
+    <section id="gallery" className="snap-start min-h-screen px-6 md:px-10 py-26 md:py-24 text-paper">
       <div className="max-w-[1180px] mx-auto">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-10">
           <div>

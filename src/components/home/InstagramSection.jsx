@@ -14,7 +14,7 @@ export function InstagramSection({ content, instagramHandle }) {
   return (
     <section
       id="instagram"
-      className="snap-start min-h-screen flex flex-col justify-center px-6 md:px-10 py-24 bg-paper-warm"
+      className="snap-start min-h-screen flex flex-col justify-center px-6 md:px-10 py-24"
     >
       <div className="max-w-[1180px] mx-auto w-full">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-10">

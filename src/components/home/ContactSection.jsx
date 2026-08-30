@@ -12,7 +12,7 @@ export function ContactSection({ content, bookingUrl, bookingLabel, hairDisclaim
   return (
     <section
       id="contact"
-      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-26 md:py-24 bg-ink text-paper"
+      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-26 md:py-24 text-paper"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center max-w-[1180px] mx-auto w-full">
         <div>

@@ -64,6 +64,66 @@ function getSectionToneAtHeader() {
   return SECTION_TONE.hero;
 }
 
+// Flat background color behind each section (mirrors the --color-* tokens
+// in globals.css). Hero keeps its own opaque photo + bg-paper-deep, so it's
+// listed only so the hero->about blend below has a starting color to mix
+// from — it's never actually visible, since hero's own image fully covers
+// it the whole time hero is on screen.
+const SECTION_BG = {
+  hero: '#e9e4db',
+  about: '#f3f0ea',
+  services: '#ede8e0',
+  gallery: '#1b1917',
+  instagram: '#ede8e0',
+  voices: '#e4ded4',
+  faq: '#f3f0ea',
+  contact: '#1b1917',
+};
+
+// How many px of scroll, right before a section boundary crosses the
+// header line, the background spends blending into the next section's
+// color. Outside that window the color is flat (no blending).
+const BG_BLEND_ZONE_PX = 220;
+
+function hexToRgb(hex) {
+  const num = parseInt(hex.slice(1), 16);
+  return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+}
+
+function mixColors(hexA, hexB, progress) {
+  const [r1, g1, b1] = hexToRgb(hexA);
+  const [r2, g2, b2] = hexToRgb(hexB);
+  const r = Math.round(r1 + (r2 - r1) * progress);
+  const g = Math.round(g1 + (g2 - g1) * progress);
+  const b = Math.round(b1 + (b2 - b1) * progress);
+  return `rgb(${r} ${g} ${b})`;
+}
+
+// Every section paints no background of its own (except hero) — this
+// computes the exact color for the shared background layer from the
+// current scroll position, so it can be applied directly with no CSS
+// `transition` involved. That sidesteps the raciness a plain
+// `transition: background-color` had when swapped rapidly on scroll (see
+// the header CTA color fix).
+function getBackgroundColorAtHeader() {
+  for (let i = 0; i < SECTION_IDS.length; i++) {
+    const id = SECTION_IDS[i];
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= HEADER_HEIGHT_PX && rect.bottom > HEADER_HEIGHT_PX) {
+      const nextId = SECTION_IDS[i + 1];
+      const distanceToBoundary = rect.bottom - HEADER_HEIGHT_PX;
+      if (nextId && distanceToBoundary < BG_BLEND_ZONE_PX) {
+        const progress = 1 - distanceToBoundary / BG_BLEND_ZONE_PX;
+        return mixColors(SECTION_BG[id], SECTION_BG[nextId], Math.min(1, Math.max(0, progress)));
+      }
+      return SECTION_BG[id];
+    }
+  }
+  return SECTION_BG.hero;
+}
+
 /**
  * Owns the cross-section experience: the splash intro, scroll-snap
  * navigation between sections, the fixed footer's scroll-triggered
@@ -75,6 +135,7 @@ export function HomeExperience() {
   const [footerVisible, setFooterVisible] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [headerTone, setHeaderTone] = useState(SECTION_TONE.hero);
+  const [bgColor, setBgColor] = useState(SECTION_BG.hero);
   const mainRef = useRef(null);
 
   const { data: siteSettings } = useSiteSettings();
@@ -117,10 +178,13 @@ export function HomeExperience() {
     const nearBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - FOOTER_REVEAL_THRESHOLD_PX;
     setFooterVisible(nearBottom);
     setHeaderTone(getSectionToneAtHeader());
+    setBgColor(getBackgroundColorAtHeader());
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-paper">
+    <div className="relative h-screen w-full overflow-hidden">
+      <div aria-hidden="true" className="fixed inset-0 -z-10" style={{ backgroundColor: bgColor }} />
+
       <AnimatePresence>
         {intro && (
           <SplashIntro

@@ -27,7 +27,7 @@ export function VoicesSection({ content, testimonials = [] }) {
   return (
     <section
       id="voices"
-      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24 bg-paper-dusk"
+      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24"
     >
       <div className="max-w-[860px] mx-auto text-center">
         <Eyebrow className="mb-10">{content?.eyebrow}</Eyebrow>

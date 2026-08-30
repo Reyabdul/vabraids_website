@@ -24,7 +24,7 @@ export function ServicesSection({ content, services = [], hairDisclaimer }) {
   return (
     <section
       id="services"
-      className="snap-start min-h-screen px-6 md:px-10 py-26 md:py-24 bg-paper-warm"
+      className="snap-start min-h-screen px-6 md:px-10 py-26 md:py-24"
     >
       <div className="max-w-[1180px] mx-auto">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-13">

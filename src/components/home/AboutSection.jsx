@@ -11,7 +11,7 @@ export function AboutSection({ content }) {
   return (
     <section
       id="about"
-      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24 md:py-16 bg-paper"
+      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24 md:py-16"
     >
       <div className="grid grid-cols-1 md:grid-cols-[0.85fr_1fr] gap-10 md:gap-18 items-center max-w-[1180px] mx-auto w-full">
         <div className="relative w-full aspect-[3/4]">

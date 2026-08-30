@@ -13,7 +13,7 @@ export function FaqSection({ content, faqs = [] }) {
   const [openId, setOpenId] = useState(faqs[0]?._id ?? null);
 
   return (
-    <section id="faq" className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24 bg-paper">
+    <section id="faq" className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24">
       <div className="max-w-[900px] mx-auto w-full">
         <div className="text-center mb-13">
           <Eyebrow className="mb-5 text-center">{content?.eyebrow}</Eyebrow>
