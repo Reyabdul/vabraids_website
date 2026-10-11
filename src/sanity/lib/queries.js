@@ -9,7 +9,8 @@ export const splashContentQuery = /* groq */ `*[_type == "splashContent"][0]`;
 
 export const heroContentQuery = /* groq */ `*[_type == "heroContent"][0]{
   ...,
-  backgroundImage
+  backgroundImage,
+  "videoUrl": backgroundVideo.asset->url
 }`;
 
 export const aboutContentQuery = /* groq */ `*[_type == "aboutContent"][0]{
@@ -33,7 +34,10 @@ export const galleryImagesQuery = /* groq */ `*[_type == "galleryImage"] | order
 
 export const featuredGalleryImagesQuery = /* groq */ `*[_type == "galleryImage" && featured == true] | order(order asc){
   ...,
-  image
+  image{
+    ...,
+    "dimensions": asset->metadata.dimensions
+  }
 }`;
 
 export const instagramContentQuery = /* groq */ `*[_type == "instagramContent"][0]`;

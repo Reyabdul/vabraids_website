@@ -48,6 +48,39 @@
   }
 }
 
+/*
+ * `split:` — the hero's side-by-side layout (text left, portrait video
+ * right). It needs a viewport that is both wide (lg) and landscape: on a
+ * large tablet held upright the video column would be a tall sliver, so
+ * portrait viewports of any width keep the phone layout instead (video
+ * full-bleed, text on top). Keep this condition identical to the media
+ * query on --hero-video-w below.
+ */
+@custom-variant split (@media (min-width: 64rem) and (min-aspect-ratio: 1/1));
+
+/*
+ * Width of the hero's video column. The hero layout, the splash curtain
+ * and the header's two-tone split all read this one value so they always
+ * meet on the same line.
+ * - By default the portrait video is the full-bleed background (100vw).
+ * - In the `split` layout it's a right-hand column. A 9:16 video is
+ *   exactly 56.25vh wide at full viewport height; 64vh is deliberately a
+ *   bit wider than that, so the video crops slightly top and bottom
+ *   (object-cover) in exchange for a broader column. Raise or lower that
+ *   middle value to move the split. The clamp keeps the column between a
+ *   third and half of the screen: the 32vw floor is what ultra-wide
+ *   monitors get, the 50vw ceiling is what squarer tablets get.
+ */
+:root {
+  --hero-video-w: 100vw;
+}
+
+@media (min-width: 64rem) and (min-aspect-ratio: 1/1) {
+  :root {
+    --hero-video-w: clamp(32vw, 64vh, 50vw);
+  }
+}
+
 .no-scrollbar {
   scrollbar-width: none;
 }

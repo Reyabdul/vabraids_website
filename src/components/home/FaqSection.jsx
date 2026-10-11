@@ -4,30 +4,33 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Reveal } from '@/components/ui/Reveal';
 import { FaqItem } from './FaqItem';
 
 /**
- * "Good to Know" FAQ accordion — one question open at a time.
+ * "Good to Know" FAQ accordion — every question starts closed and
+ * expands on click, one open at a time.
  */
 export function FaqSection({ content, faqs = [] }) {
-  const [openId, setOpenId] = useState(faqs[0]?._id ?? null);
+  const [openId, setOpenId] = useState(null);
 
   return (
-    <section id="faq" className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24">
+    <section id="faq" className="min-h-screen flex items-center px-6 md:px-10 py-24">
       <div className="max-w-[900px] mx-auto w-full">
-        <div className="text-center mb-13">
+        <Reveal className="text-center mb-13">
           <Eyebrow className="mb-5 text-center">{content?.eyebrow}</Eyebrow>
           <SectionHeading>{content?.heading}</SectionHeading>
-        </div>
+        </Reveal>
         <div className="border-t border-ink/16">
-          {faqs.map((faq) => (
-            <FaqItem
-              key={faq._id}
-              question={faq.question}
-              answer={faq.answer}
-              open={openId === faq._id}
-              onToggle={() => setOpenId((id) => (id === faq._id ? null : faq._id))}
-            />
+          {faqs.map((faq, i) => (
+            <Reveal key={faq._id} delay={0.06 * i}>
+              <FaqItem
+                question={faq.question}
+                answer={faq.answer}
+                open={openId === faq._id}
+                onToggle={() => setOpenId((id) => (id === faq._id ? null : faq._id))}
+              />
+            </Reveal>
           ))}
         </div>
       </div>

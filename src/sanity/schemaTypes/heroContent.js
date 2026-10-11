@@ -8,9 +8,19 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'backgroundVideo',
+      title: 'Hero Video',
+      type: 'file',
+      description:
+        'Portrait (9:16) MP4, H.264, no sound, ideally under 8 MB. Plays silently on a loop beside the headline (full-screen on phones).',
+      options: { accept: 'video/mp4' },
+    },
+    {
       name: 'backgroundImage',
-      title: 'Background Image',
+      title: 'Poster / Fallback Image',
       type: 'image',
+      description:
+        'Shown while the video loads, and instead of it for visitors who have reduced motion turned on. A still frame from the video works best.',
       options: { hotspot: true },
     },
     {

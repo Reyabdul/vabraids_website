@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import PropTypes from 'prop-types';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Reveal } from '@/components/ui/Reveal';
 
 const ROTATE_INTERVAL_MS = 6500;
 
@@ -24,13 +25,19 @@ export function VoicesSection({ content, testimonials = [] }) {
 
   const current = testimonials[index];
 
+  // Nothing to show until the client adds at least one testimonial in
+  // Sanity — skip the section entirely rather than showing an empty block.
+  if (testimonials.length === 0) return null;
+
   return (
     <section
       id="voices"
-      className="snap-start min-h-screen flex items-center px-6 md:px-10 py-24"
+      className="min-h-screen flex items-center px-6 md:px-10 py-24"
     >
       <div className="max-w-[860px] mx-auto text-center">
-        <Eyebrow className="mb-10">{content?.eyebrow}</Eyebrow>
+        <Reveal>
+          <Eyebrow className="mb-10">{content?.eyebrow}</Eyebrow>
+        </Reveal>
 
         {current && (
           <AnimatePresence mode="wait">

@@ -4,7 +4,7 @@ const VARIANT_CLASSES = {
   // Standard section heading (About, Services, Gallery, Instagram, Voices, FAQ)
   default: 'text-[clamp(34px,3.6vw,58px)] leading-none',
   // Hero — bigger, tighter leading
-  hero: 'text-[clamp(48px,7vw,104px)] leading-[.96]',
+  hero: 'text-[clamp(44px,7vw,128px)] leading-[.96]',
   // Contact — between default and hero
   display: 'text-[clamp(38px,4.4vw,68px)] leading-[1.02]',
   // Voices — italic pull-quote

@@ -12,13 +12,15 @@ export function FaqItem({ question, answer, open, onToggle }) {
       <button
         type="button"
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-5 py-6 px-1 cursor-pointer bg-transparent border-0 text-left"
+        className="group w-full flex items-center justify-between gap-5 py-6 px-1 cursor-pointer bg-transparent border-0 text-left"
       >
-        <span className="text-lg">{question}</span>
+        {/* Hover: the question softens while the plus darkens, pointing
+            the eye at the control that opens the row. */}
+        <span className="text-lg transition-colors duration-300 group-hover:text-muted-2">{question}</span>
         <motion.span
           animate={{ rotate: open ? 135 : 0 }}
           transition={{ duration: 0.4 }}
-          className="font-display text-3xl leading-none text-muted"
+          className="font-display text-3xl leading-none text-muted transition-colors duration-300 group-hover:text-ink"
         >
           +
         </motion.span>

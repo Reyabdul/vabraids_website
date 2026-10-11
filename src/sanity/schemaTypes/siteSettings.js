@@ -62,10 +62,10 @@ export default {
       group: 'navigation',
     },
     {
-      name: 'navInstagramLabel',
-      title: 'Instagram Link Label',
+      name: 'navFaqLabel',
+      title: 'FAQ Link Label',
       type: 'string',
-      initialValue: 'Instagram',
+      initialValue: 'FAQ',
       group: 'navigation',
     },
     {

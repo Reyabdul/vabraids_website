@@ -43,6 +43,13 @@ export default {
       type: 'string',
       description: 'e.g. "The Re-Up Hub"',
     },
+    {
+      name: 'partnershipUrl',
+      title: 'Partnership Link',
+      type: 'url',
+      description: 'Where the partnership name links to. Defaults to https://www.thereuphub.com/ if left empty.',
+      initialValue: 'https://www.thereuphub.com/',
+    },
   ],
   preview: {
     prepare() {

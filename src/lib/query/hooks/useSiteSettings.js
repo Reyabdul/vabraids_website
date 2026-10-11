@@ -7,7 +7,7 @@ import { siteSettingsQuery } from '@/sanity/lib/queries';
  * @returns {import('@tanstack/react-query').UseQueryResult<{
  *   _id: string, businessName: string, tagline: string, instagramHandle: string,
  *   navStudioLabel: string, navServicesLabel: string, navGalleryLabel: string,
- *   navInstagramLabel: string, navContactLabel: string, bookingCtaLabel: string,
+ *   navFaqLabel: string, navContactLabel: string, bookingCtaLabel: string,
  *   footerCopyrightText: string, studioAddress: string, bookingPlatformName: string,
  *   bookingUrl: string, contactEmail: string, hairDisclaimer: string
  * }>}

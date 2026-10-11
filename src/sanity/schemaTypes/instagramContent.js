@@ -20,6 +20,16 @@ export default {
       description: 'e.g. "Follow on Instagram →"',
       initialValue: 'Follow on Instagram →',
     },
+    {
+      name: 'embedCode',
+      title: 'Reels Embed Code',
+      type: 'text',
+      rows: 6,
+      description:
+        'Paste the full embed snippet (script + div) from a Reels widget provider ' +
+        '(e.g. EmbedSocial, Tagembed) connected to the client’s Instagram account, so new ' +
+        'Reels she posts show up here automatically. Leave empty to show placeholder squares.',
+    },
   ],
   preview: {
     prepare() {

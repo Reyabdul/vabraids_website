@@ -4,16 +4,19 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import PropTypes from 'prop-types';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { SanityImage } from '@/components/ui/SanityImage';
+import { CtaLink } from '@/components/ui/CtaLink';
+import { GalleryPhoto } from './GalleryPhoto';
+import { Reveal } from '@/components/ui/Reveal';
 
 const CATEGORY_ORDER = ['all', 'braids', 'twists', 'ponytails'];
 
 /**
  * Full-screen gallery overlay — category filter tabs over a masonry
- * grid of every gallery image. Mounted/unmounted by the parent inside
- * an <AnimatePresence>.
+ * grid of every gallery image. Tiles are black and white until hovered;
+ * clicking one opens it in the lightbox via `onSelectImage`.
+ * Mounted/unmounted by the parent inside an <AnimatePresence>.
  */
-export function GalleryOverlay({ content, images = [], instagramHandle, onClose }) {
+export function GalleryOverlay({ content, images = [], instagramHandle, onClose, onSelectImage }) {
   const [filter, setFilter] = useState('all');
   const filtered = filter === 'all' ? images : images.filter((img) => img.category === filter);
 
@@ -25,13 +28,15 @@ export function GalleryOverlay({ content, images = [], instagramHandle, onClose 
       transition={{ duration: 0.35 }}
       className="fixed inset-0 z-[70] bg-ink text-paper overflow-y-auto px-6 md:px-10 pt-20 pb-16"
     >
-      <button
-        type="button"
+      <CtaLink
         onClick={onClose}
-        className="absolute top-6 right-9 text-[13px] tracking-[.2em] uppercase cursor-pointer bg-transparent border-0 text-paper p-0"
+        variant="outline"
+        tone="dark"
+        size="sm"
+        className="absolute top-5 right-6 md:right-10"
       >
         {content?.closeLabel}
-      </button>
+      </CtaLink>
 
       <div className="max-w-[1180px] mx-auto">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-10">
@@ -45,7 +50,7 @@ export function GalleryOverlay({ content, images = [], instagramHandle, onClose 
                   type="button"
                   onClick={() => setFilter(key)}
                   className={`text-[11px] tracking-[.18em] uppercase px-4 py-[9px] cursor-pointer transition-colors border ${
-                    active ? 'bg-paper text-ink border-paper' : 'bg-transparent text-paper border-paper/28'
+                    active ? 'bg-paper text-ink border-paper' : 'bg-transparent text-paper border-paper/28 hover:border-paper/70'
                   }`}
                 >
                   {content?.filterLabels?.[key]}
@@ -56,20 +61,21 @@ export function GalleryOverlay({ content, images = [], instagramHandle, onClose 
         </div>
 
         <div className="columns-1 sm:columns-2 md:columns-3 gap-4">
-          {filtered.map((img) => {
+          {filtered.map((img, i) => {
             const { width, height } = img.image?.dimensions || {};
             return (
-              <div
+              <Reveal
                 key={img._id}
-                className="break-inside-avoid mb-4 relative w-full"
+                delay={0.05 * (i % 6)}
+                className="break-inside-avoid mb-4 relative w-full hover:z-10 focus-within:z-10"
                 style={{ aspectRatio: width && height ? `${width} / ${height}` : '3 / 4' }}
               >
-                <SanityImage
-                  image={img.image}
-                  alt={img.alt}
+                <GalleryPhoto
+                  photo={img}
                   sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  onSelect={onSelectImage}
                 />
-              </div>
+              </Reveal>
             );
           })}
         </div>
@@ -102,9 +108,11 @@ GalleryOverlay.propTypes = {
       _id: PropTypes.string,
       image: PropTypes.object,
       alt: PropTypes.string,
+      label: PropTypes.string,
       category: PropTypes.string,
     })
   ),
   instagramHandle: PropTypes.string,
   onClose: PropTypes.func.isRequired,
+  onSelectImage: PropTypes.func.isRequired,
 };
