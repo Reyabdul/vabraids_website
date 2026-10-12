@@ -5,17 +5,11 @@ import { urlFor } from '@/sanity/lib/image';
 /**
  * Fills its (positioned, sized) parent with a Sanity image, or a neutral
  * placeholder box when the field hasn't been filled in yet in Studio.
- * Also accepts a local `{ src }` image (see src/lib/localGalleryImages.js),
- * the stand-in used for content that isn't in Sanity yet.
- * @param {{ image: object, alt: string, sizes?: string, className?: string }} props
+ * `priority` loads the image eagerly instead of lazily — only for the one
+ * image visible as soon as the page opens (the hero poster).
+ * @param {{ image: object, alt: string, sizes?: string, className?: string, priority?: boolean }} props
  */
-export function SanityImage({ image, alt, sizes = '100vw', className = '' }) {
-  if (image?.src) {
-    return (
-      <Image src={image.src} alt={alt || ''} fill sizes={sizes} className={`object-cover ${className}`} />
-    );
-  }
-
+export function SanityImage({ image, alt, sizes = '100vw', className = '', priority = false }) {
   if (!image?.asset) {
     return <div className={`absolute inset-0 bg-paper-warm ${className}`} />;
   }
@@ -26,6 +20,8 @@ export function SanityImage({ image, alt, sizes = '100vw', className = '' }) {
       alt={alt || ''}
       fill
       sizes={sizes}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : undefined}
       className={`object-cover ${className}`}
     />
   );
@@ -36,4 +32,5 @@ SanityImage.propTypes = {
   alt: PropTypes.string,
   sizes: PropTypes.string,
   className: PropTypes.string,
+  priority: PropTypes.bool,
 };

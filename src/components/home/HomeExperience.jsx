@@ -32,9 +32,6 @@ import { FaqSection } from './FaqSection';
 import { ContactSection } from './ContactSection';
 import { GalleryOverlay } from '@/components/gallery/GalleryOverlay';
 import { GalleryLightbox } from '@/components/gallery/GalleryLightbox';
-import { LOCAL_GALLERY_IMAGES, LOCAL_HERO_IMAGE, LOCAL_HERO_VIDEO } from '@/lib/localGalleryImages';
-
-const LOCAL_FEATURED_GALLERY_IMAGES = LOCAL_GALLERY_IMAGES.filter((image) => image.featured);
 
 // Scroll near the bottom of a section before the fixed footer reveals itself.
 const FOOTER_REVEAL_THRESHOLD_PX = 30;
@@ -180,13 +177,6 @@ export function HomeExperience() {
   const { data: faqs } = useFaqs();
   const { data: contactContent } = useContactContent();
 
-  // Sanity wins whenever it has content; the photos bundled in
-  // /public/assets only fill in while a field/collection is still empty.
-  const heroImage = heroContent?.backgroundImage?.asset ? heroContent.backgroundImage : LOCAL_HERO_IMAGE;
-  const heroVideoUrl = heroContent?.videoUrl || LOCAL_HERO_VIDEO;
-  const previewImages = featuredGalleryImages?.length ? featuredGalleryImages : LOCAL_FEATURED_GALLERY_IMAGES;
-  const overlayImages = galleryImages?.length ? galleryImages : LOCAL_GALLERY_IMAGES;
-
   const enter = useCallback(() => {
     setIntro((wasIntro) => {
       if (!wasIntro) return wasIntro;
@@ -256,7 +246,7 @@ export function HomeExperience() {
         className="no-scrollbar h-dvh overflow-y-scroll relative"
       >
         <HeroSection
-          content={{ ...heroContent, backgroundImage: heroImage, videoUrl: heroVideoUrl }}
+          content={heroContent}
           bookingUrl={siteSettings?.bookingUrl}
           bookingLabel={siteSettings?.bookingCtaLabel}
           onViewServices={() => goTo('services')}
@@ -270,7 +260,7 @@ export function HomeExperience() {
         />
         <GallerySection
           content={galleryContent}
-          images={previewImages}
+          images={featuredGalleryImages}
           onOpenFullGallery={() => setGalleryOpen(true)}
           onSelectImage={setLightboxPhoto}
         />
@@ -299,7 +289,7 @@ export function HomeExperience() {
         {galleryOpen && (
           <GalleryOverlay
             content={galleryContent}
-            images={overlayImages}
+            images={galleryImages}
             instagramHandle={siteSettings?.instagramHandle}
             onClose={() => setGalleryOpen(false)}
             onSelectImage={setLightboxPhoto}

@@ -11,7 +11,7 @@ import { SanityImage } from '@/components/ui/SanityImage';
  * paints, and is all that renders when there's no video or the visitor
  * has asked their OS to reduce motion.
  * @param {{ src?: string, poster?: object, sizes?: string }} props
- *   `poster` is a Sanity image or a local `{ src }` (see <SanityImage>).
+ *   `poster` is a Sanity image (see <SanityImage>).
  */
 export function BackgroundVideo({ src, poster, sizes = '100vw' }) {
   const videoRef = useRef(null);
@@ -32,7 +32,7 @@ export function BackgroundVideo({ src, poster, sizes = '100vw' }) {
 
   return (
     <>
-      <SanityImage image={poster} alt="" sizes={sizes} />
+      <SanityImage image={poster} alt="" sizes={sizes} priority />
       {showVideo && (
         <video
           ref={videoRef}

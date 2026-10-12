@@ -52,7 +52,7 @@ export default {
       name: 'price',
       title: 'Price',
       type: 'number',
-      description: 'Base price in USD. Only used when Price Type is "Flat price".',
+      description: 'Base price in Canadian dollars (CAD) — type the number only, the $ is added on the site. Only used when Price Type is "Flat price".',
       hidden: ({ parent }) => parent?.priceType !== 'flat',
       validation: (Rule) =>
         Rule.custom((value, context) => {

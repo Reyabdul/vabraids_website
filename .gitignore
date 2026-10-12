@@ -43,11 +43,3 @@ CLAUDE.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# local fallback media — photos live in Sanity; only videos are committed
-/public/assets/*
-!/public/assets/*.mp4
-!/public/assets/*.MP4
-!/public/assets/*.mov
-!/public/assets/*.MOV
-!/public/assets/*.webm

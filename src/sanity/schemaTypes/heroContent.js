@@ -22,6 +22,9 @@ export default {
       description:
         'Shown while the video loads, and instead of it for visitors who have reduced motion turned on. A still frame from the video works best.',
       options: { hotspot: true },
+      // Nothing else stands in for it: without a poster the hero is an
+      // empty panel for anyone the video doesn't play for.
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'eyebrow',
