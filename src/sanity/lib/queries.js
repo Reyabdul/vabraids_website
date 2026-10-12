@@ -5,6 +5,13 @@
 
 export const siteSettingsQuery = /* groq */ `*[_type == "siteSettings"][0]`;
 
+// Just the fields the page <head> needs (see generateMetadata in src/app/layout.js).
+export const siteMetadataQuery = /* groq */ `*[_type == "siteSettings"][0]{
+  seoTitle,
+  seoDescription,
+  shareImage
+}`;
+
 export const splashContentQuery = /* groq */ `*[_type == "splashContent"][0]`;
 
 export const heroContentQuery = /* groq */ `*[_type == "heroContent"][0]{

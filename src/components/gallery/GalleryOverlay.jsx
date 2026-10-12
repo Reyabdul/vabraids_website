@@ -83,7 +83,7 @@ export function GalleryOverlay({ content, images = [], instagramHandle, onClose,
         {instagramHandle && (
           <div className="flex items-center justify-between mt-9 border-t border-paper/16 pt-6 flex-wrap gap-4">
             <a
-              href="https://www.instagram.com/"
+              href={`https://www.instagram.com/${instagramHandle}/`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-paper text-xs tracking-[.2em] uppercase"

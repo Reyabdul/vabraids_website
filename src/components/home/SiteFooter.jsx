@@ -19,7 +19,7 @@ export function SiteFooter({ siteSettings, visible }) {
       <span className="hidden md:inline">{siteSettings?.studioAddress}</span>
       {siteSettings?.instagramHandle && (
         <a
-          href="https://www.instagram.com/"
+          href={`https://www.instagram.com/${siteSettings.instagramHandle}/`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-2"

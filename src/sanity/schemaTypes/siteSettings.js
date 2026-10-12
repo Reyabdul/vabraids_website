@@ -2,24 +2,33 @@
  * Singleton document for global, cross-section copy — the fixed header
  * nav, fixed footer, and anything reused in more than one section
  * (booking CTA label appears in header, hero, and contact).
+ *
+ * Tabs are grouped by where a field shows up on the page, and every
+ * description says where that is, so an editor can find a piece of text
+ * by looking at the site.
  */
 export default {
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
   groups: [
-    { name: 'brand', title: 'Brand' },
-    { name: 'navigation', title: 'Header Nav' },
+    { name: 'brand', title: 'Business Name & Tagline' },
+    { name: 'navigation', title: 'Header Menu' },
+    { name: 'booking', title: 'Booking Button' },
+    { name: 'instagram', title: 'Instagram' },
     { name: 'footer', title: 'Footer' },
-    { name: 'booking', title: 'Booking & Contact' },
-    { name: 'legal', title: 'Disclosures' },
+    { name: 'legal', title: 'Hair Disclaimer' },
+    { name: 'inquiryEmail', title: 'Inquiry Form Email' },
+    { name: 'seo', title: 'SEO & Sharing' },
   ],
   fields: [
-    // --- Brand ---
+    // --- Business Name & Tagline ---
     {
       name: 'businessName',
       title: 'Business Name',
       type: 'string',
+      description:
+        'Shown as the logo text at the top left of every screen, and large on the intro screen visitors see first.',
       initialValue: 'VA Braids',
       group: 'brand',
     },
@@ -27,23 +36,19 @@ export default {
       name: 'tagline',
       title: 'Tagline',
       type: 'string',
-      description: 'e.g. "Est. Toronto"',
-      group: 'brand',
-    },
-    {
-      name: 'instagramHandle',
-      title: 'Instagram Handle',
-      type: 'string',
-      description: 'Without the @ symbol, used across nav/instagram/footer.',
-      validation: (Rule) => Rule.required(),
+      description: 'Small line shown with the business name on the intro screen only, e.g. "Est. Toronto".',
       group: 'brand',
     },
 
-    // --- Header Nav ---
+    // --- Header Menu ---
+    // The menu links only show on wide screens (laptops/desktops); phones
+    // and tablets show just the business name and the booking button.
     {
       name: 'navStudioLabel',
-      title: '"Studio" (About) Link Label',
+      title: 'About Link Label',
       type: 'string',
+      description:
+        'Top menu link that scrolls to the About / Stylist section. Menu links show on laptop and desktop screens only.',
       initialValue: 'Studio',
       group: 'navigation',
     },
@@ -51,6 +56,7 @@ export default {
       name: 'navServicesLabel',
       title: 'Services Link Label',
       type: 'string',
+      description: 'Top menu link that scrolls to the Services / Menu section.',
       initialValue: 'Services',
       group: 'navigation',
     },
@@ -58,6 +64,7 @@ export default {
       name: 'navGalleryLabel',
       title: 'Gallery Link Label',
       type: 'string',
+      description: 'Top menu link that scrolls to the Gallery section.',
       initialValue: 'Gallery',
       group: 'navigation',
     },
@@ -65,6 +72,7 @@ export default {
       name: 'navFaqLabel',
       title: 'FAQ Link Label',
       type: 'string',
+      description: 'Top menu link that scrolls to the FAQ section.',
       initialValue: 'FAQ',
       group: 'navigation',
     },
@@ -72,16 +80,50 @@ export default {
       name: 'navContactLabel',
       title: 'Contact Link Label',
       type: 'string',
+      description: 'Top menu link that scrolls to the Contact section.',
       initialValue: 'Contact',
       group: 'navigation',
     },
+
+    // --- Booking Button ---
     {
       name: 'bookingCtaLabel',
       title: 'Booking Button Label',
       type: 'string',
-      description: 'Reused in header, hero, and contact section, e.g. "Book on Re-Up ↗"',
+      description:
+        'Text on the booking button, e.g. "Book on Re-Up ↗". The same button appears in three places: the top right of the header, the hero (first screen), and the Contact section.',
       initialValue: 'Book on Re-Up ↗',
-      group: 'navigation',
+      group: 'booking',
+    },
+    {
+      name: 'bookingUrl',
+      title: 'Booking URL',
+      type: 'url',
+      description:
+        'Where the booking button goes (the Squire booking page). Used by all three booking buttons — if this is empty, the buttons disappear.',
+      validation: (Rule) => Rule.required().uri({ scheme: ['http', 'https'] }),
+      group: 'booking',
+    },
+    {
+      name: 'bookingPlatformName',
+      title: 'Booking Platform Name',
+      type: 'string',
+      description: 'Not shown anywhere on the site.',
+      // Kept (hidden) rather than deleted so the value already saved on the
+      // document doesn't show up in Studio as an unknown field.
+      hidden: true,
+      group: 'booking',
+    },
+
+    // --- Instagram ---
+    {
+      name: 'instagramHandle',
+      title: 'Instagram Handle',
+      type: 'string',
+      description:
+        'Account name without the @ symbol, e.g. "va.braidedit". Shown as the big heading of the Instagram section, in the footer bar, and at the bottom of the Full Gallery. It also sets where every Instagram link on the site goes.',
+      validation: (Rule) => Rule.required(),
+      group: 'instagram',
     },
 
     // --- Footer ---
@@ -89,52 +131,69 @@ export default {
       name: 'footerCopyrightText',
       title: 'Copyright Text',
       type: 'string',
-      description: 'e.g. "VA Braids © 2026"',
+      description: 'Left side of the thin bar that slides up at the bottom of the page, e.g. "VA Braids © 2026".',
       group: 'footer',
     },
     {
       name: 'studioAddress',
       title: 'Studio Address',
       type: 'string',
-      description: 'e.g. "The Re-Up Hub · North York, Toronto"',
+      description:
+        'Middle of the footer bar, e.g. "The Re-Up Hub · North York, Toronto". Hidden on phones to save space.',
       group: 'footer',
     },
 
-    // --- Booking & Contact ---
-    {
-      name: 'bookingPlatformName',
-      title: 'Booking Platform Name',
-      type: 'string',
-      description: 'e.g. "The Re-Up Hub"',
-      group: 'booking',
-    },
-    {
-      name: 'bookingUrl',
-      title: 'Booking URL',
-      type: 'url',
-      description: 'External booking flow (Squire), used by every "Book on Re-Up" CTA.',
-      validation: (Rule) => Rule.required().uri({ scheme: ['http', 'https'] }),
-      group: 'booking',
-    },
-    {
-      name: 'contactEmail',
-      title: 'Contact Email',
-      type: 'string',
-      description: 'Destination for the inquiry form.',
-      validation: (Rule) => Rule.required().email(),
-      group: 'booking',
-    },
-
-    // --- Disclosures ---
+    // --- Hair Disclaimer ---
     {
       name: 'hairDisclaimer',
       title: 'Hair Disclaimer',
       type: 'text',
       rows: 3,
       description:
-        'Required copy stating VA Braids does not supply/add hair by default.',
+        'Required note about whether hair/extensions are supplied. Shown in two places: under the price list in the Services / Menu section, and in the Contact section.',
       validation: (Rule) => Rule.required(),
       group: 'legal',
+    },
+
+    // --- Inquiry Form Email ---
+    {
+      name: 'contactEmail',
+      title: 'Contact Email',
+      type: 'string',
+      description:
+        'Inquiries from the contact form will be sent to this address. Not active yet — the form does not send email until delivery is set up. Not shown on the page.',
+      validation: (Rule) => Rule.required().email(),
+      group: 'inquiryEmail',
+    },
+
+    // --- SEO & Sharing ---
+    {
+      name: 'seoTitle',
+      title: 'Page Title',
+      type: 'string',
+      description:
+        'Shown in the browser tab, in Google results, and as the title of link previews. Aim for under 60 characters.',
+      validation: (Rule) => Rule.max(60).warning('Longer titles get cut off in Google results.'),
+      group: 'seo',
+    },
+    {
+      name: 'seoDescription',
+      title: 'Page Description',
+      type: 'text',
+      rows: 3,
+      description:
+        'The short summary under the title in Google results and link previews. Aim for under 160 characters.',
+      validation: (Rule) => Rule.max(160).warning('Longer descriptions get cut off in Google results.'),
+      group: 'seo',
+    },
+    {
+      name: 'shareImage',
+      title: 'Share Image',
+      type: 'image',
+      description:
+        'The picture shown when the site link is shared (iMessage, WhatsApp, Instagram DMs). Landscape works best — it is cropped to 1200 × 630.',
+      options: { hotspot: true },
+      group: 'seo',
     },
   ],
   preview: {

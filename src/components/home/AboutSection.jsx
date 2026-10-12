@@ -8,6 +8,9 @@ import { Reveal } from '@/components/ui/Reveal';
 // Used until "Partnership Link" is filled in on the About document in Studio.
 const DEFAULT_PARTNERSHIP_URL = 'https://www.thereuphub.com/';
 
+// Used until "Alt Text" is filled in on the portrait in Studio.
+const DEFAULT_PORTRAIT_ALT = 'Portrait of Vanessa';
+
 /**
  * About/Stylist section — portrait, bio, and the Re-Up partnership credit
  * (the partner name links out to their site).
@@ -20,7 +23,7 @@ export function AboutSection({ content }) {
     >
       <div className="grid grid-cols-1 md:grid-cols-[0.85fr_1fr] gap-10 md:gap-18 items-center max-w-[1180px] mx-auto w-full">
         <Reveal className="relative w-full aspect-[3/4]">
-          <SanityImage image={content?.portrait} alt="Portrait of Vanessa" sizes="(min-width: 768px) 40vw, 100vw" />
+          <SanityImage image={content?.portrait} alt={content?.portrait?.alt || DEFAULT_PORTRAIT_ALT} sizes="(min-width: 768px) 40vw, 100vw" />
         </Reveal>
         <Reveal delay={0.15}>
           <Eyebrow className="mb-6">{content?.eyebrow}</Eyebrow>

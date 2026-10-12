@@ -11,6 +11,15 @@ export default {
       title: 'Stylist Portrait',
       type: 'image',
       options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description:
+            'Describes the photo for screen readers and search engines, e.g. "Vanessa braiding a client\'s hair in the studio". Defaults to "Portrait of Vanessa" if left empty.',
+        },
+      ],
     },
     {
       name: 'eyebrow',
